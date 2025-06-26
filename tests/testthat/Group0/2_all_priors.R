@@ -1,67 +1,8 @@
-# ggdmcPrior
-ggdmcPrior provides functions for specifying and evaluating standard distributions, designed to work with the ggdmc package. It supports Bayesian computation and includes utilities for density calculation, sampling, and visualisation.
+q(save = "no")
+cat("\n-------------------- Testing distributions  --------------------\n")
+pkg <- c("ggdmcPrior")
+suppressPackageStartupMessages(tmp <- sapply(pkg, require, character.only = TRUE))
 
-# Getting Started
-The package is mainly to support ggdmc, so you can use it together with other ggdmc supporting packages.
-
-```
-cat("\n--------- Printing the joint prior distribution in C++-------\n")
-
-p0 <- c(A = 0.15, B = 0.45, mean_v = 2.25, sd_v = 0.15, t0 = 0.2)
-p1 <- rep(0.1, 5)
-names(p1) <- names(p0)
-
-
-p_prior <- BuildPrior(
-    p0 = p0,
-    p1 = p1,
-    lower = rep(NA, 5),
-    upper = rep(NA, 5),
-    log_p = rep(TRUE, 5),
-    dist = c("tnorm", "tnorm", "tnorm", "norm", "tnorm")
-)
-
-
-prior_S4 <- set_priors(p_prior = p_prior)
-names(p_prior)
-
-# Test print -----------------
-res <- print_prior(p_prior)
-
-# Test dprior -----------------
-parameters <- seq(0.1, 0.5, 0.1)
-res0 <- dprior(p_prior, parameters)
-res1 <- dnorm(parameters, p0, 0.1, TRUE)
-
-print(res0)
-print(res1)
-testthat::expect_equal(res0, res1)
-
-set.seed(123)
-rprior(p_prior, 1)
-set.seed(123)
-rprior(p_prior, 2)
-
-# Use the beta distribution to create uniform densities
-# lower and upper set the bounds. If lower is NA, it will be set to 0.
-# If upper is NA, it will be set to 1.
-p_prior <- BuildPrior(
-    p0 = c(A = 1, B = 1, mean_v = 1, sd_v = 1, t0 = 1),
-    p1 = rep(1, 5),
-    lower = rep(0, 5),
-    upper = rep(5, 5),
-    dist = rep("beta", 5),
-    log_p = rep(TRUE, 5)
-)
-prior_S4 <- set_priors(p_prior = p_prior)
-
-p0 <- plot_prior(p_prior)
-
-```
-
-Six different standard statistical distributions are included in ggdmcPrior.
-
-```
 p0 <- c(A = 0.15, B = 0.45, mean_v = 2.25, sd_v = 0.15, t0 = 0.2)
 
 tnorm_prior <- BuildPrior(
@@ -166,17 +107,3 @@ expected_values <- c(
     -115.54847, -333.36507, -622.87486, -33.23947, -5e+10, -11299.89563
 )
 testthat::expect_equal(results, expected_values)
-
-```
-
-# Prerequisites
-R (>= 3.3.0), Rcpp (>= 1.0.7), RcppArmadillo (>= 0.10.7.5.0), ggdmcHeaders, lattice.
-
-See DESCRIPTION for details
-
-# Installation
-
-From CRAN:
-```
-install.packages("ggdmcPrior")
-```

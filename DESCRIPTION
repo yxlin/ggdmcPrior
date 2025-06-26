@@ -1,0 +1,25 @@
+Package: ggdmcPrior
+Type: Package
+Title: ggdmc module for standard and truncated distributions
+Version: 0.2.8.9
+Date: 2024-06-26
+Authors@R: c(person(given = "Yi-Shin", family = "Lin", role = c("aut", "cre"), email = "yishinlin001@gmail.com"))
+Maintainer: Yi-Shin Lin <yishinlin001@gmail.com>
+Description: This package provides functions for specifying and evaluating 
+    standard and truncated distributions, designed to work with the ggdmc 
+    package. It supports Bayesian computation and includes utilities 
+    for density calculation, sampling, and visualisation.
+License: GPL (>= 2)  
+Imports: 
+    Rcpp (>= 1.0.7),
+    methods,
+    lattice
+Depends: R (>= 3.3.0)
+LinkingTo: 
+    Rcpp (>= 1.0.7), 
+    RcppArmadillo (>= 0.10.7.5.0),
+    ggdmcHeaders
+Suggests: testthat
+RoxygenNote: 7.3.2
+Encoding: UTF-8
+NeedsCompilation: yes
