@@ -8,7 +8,8 @@ set_priors(p_prior, l_prior = NULL, s_prior = NULL)
 }
 \arguments{
 \item{p_prior}{A list specifying prior distributions for the
-subject-level model parameters. Each element should be a list containing:
+subject-level (or model likleihood function for the population level)
+model parameters. Each element should be a list containing:
        \itemize{
           \item \code{p0}: The first parameter of the distribution.
           \item \code{p1}: The second parameter of the distribution.
@@ -49,6 +50,9 @@ This function:
   \item Returns an organised list that can be used by other model-fitting
         functions
 }
+`log_p` is usually set to TRUE, for density calculation and set to FALSE for
+sampling starting theta values. l_prior and s_prior are merged to from one h_prior via
+the internal \code{.merge_prior} function.
 }
 \examples{
 \dontrun{

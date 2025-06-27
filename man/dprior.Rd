@@ -21,7 +21,7 @@ which to evaluate the prior density.}
 \value{
 \describe{
   \item{`dprior`}{an R vector of prior density values}
-  \item{`rprior`}{an R matrix of random samples (n rows × parameters
+  \item{`rprior`}{an R matrix of random samples (n rows × nparameter
               columns)}
  }
 }

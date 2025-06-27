@@ -8,7 +8,7 @@
 \description{
 \pkg{ggdmcPrior} provides functions for specifying and evaluating standard
 distributions, designed to work with the ggdmc package. It supports Bayesian
-model computation and includes utilities for density calculation, sampling,
+computation and includes utilities for density calculation, sampling,
 and visualisation.
 }
 \author{

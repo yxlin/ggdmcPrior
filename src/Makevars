@@ -18,4 +18,4 @@ PKG_LIBS = `$(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()"`
 # PKG_CPPFLAGS = -Winvalid-pch -include precompiled.h
 
 # Enable parallel compilation
-MAKEFLAGS += -j$(nproc)
+# MAKEFLAGS += -j$(nproc)

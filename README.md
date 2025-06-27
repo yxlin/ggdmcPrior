@@ -6,7 +6,6 @@ The package is mainly to support ggdmc, so you can use it together with other gg
 
 ```
 cat("\n--------- Printing the joint prior distribution in C++-------\n")
-
 p0 <- c(A = 0.15, B = 0.45, mean_v = 2.25, sd_v = 0.15, t0 = 0.2)
 p1 <- rep(0.1, 5)
 names(p1) <- names(p0)
@@ -31,16 +30,11 @@ res <- print_prior(p_prior)
 # Test dprior -----------------
 parameters <- seq(0.1, 0.5, 0.1)
 res0 <- dprior(p_prior, parameters)
-res1 <- dnorm(parameters, p0, 0.1, TRUE)
-
-print(res0)
-print(res1)
-testthat::expect_equal(res0, res1)
 
 set.seed(123)
-rprior(p_prior, 1)
+result1 <- rprior(p_prior, 1)
 set.seed(123)
-rprior(p_prior, 2)
+result2 <- rprior(p_prior, 2)
 
 # Use the beta distribution to create uniform densities
 # lower and upper set the bounds. If lower is NA, it will be set to 0.
@@ -147,8 +141,6 @@ res <- print_prior(cauchy_prior)
 res <- print_prior(unif_prior)
 res <- print_prior(norm_prior)
 
-
-
 set.seed(123)
 parameters_r <- runif(nparameter, 0, 10)
 
@@ -160,12 +152,6 @@ res4 <- sumlogprior(p_prior_r = unif_prior, parameters_r = parameters_r)
 res5 <- sumlogprior(p_prior_r = norm_prior, parameters_r = parameters_r)
 
 results <- c(res0, res1, res2, res3, res4, res5)
-
-
-expected_values <- c(
-    -115.54847, -333.36507, -622.87486, -33.23947, -5e+10, -11299.89563
-)
-testthat::expect_equal(results, expected_values)
 
 ```
 

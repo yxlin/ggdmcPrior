@@ -26,7 +26,7 @@ cex_lab <- 2
 cex_axis <- 1.5
 line_width <- 2
 
-pdf(file = "tnorm.pdf")
+pdf(file = "tests/testthat/Group0/tnorm.pdf")
 
 hist(rtnorm_dat,
     breaks = "fd", freq = FALSE, xlab = "", cex.lab = cex_lab, cex.axis = cex_axis,

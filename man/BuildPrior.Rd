@@ -20,7 +20,7 @@ BuildPrior(
 \item{p1}{the second parameter of a distribution (e.g., sd, shape2, etc.).}
 
 \item{lower}{lower support (boundary). Default is \code{NA},
-which will be converted to a real value or Inf based on the distribution
+which will be converted to a real value or -Inf based on the distribution
 type.}
 
 \item{upper}{upper support (boundary). Default is \code{NA}, which will be

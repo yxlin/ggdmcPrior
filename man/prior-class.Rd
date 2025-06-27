@@ -10,13 +10,13 @@ An S4 class  to represent the joint distribution.
 \section{Slots}{
 
 \describe{
-\item{\code{nparameter}}{the number of parameters}
+\item{\code{nparameter}}{the number of free parameters}
 
-\item{\code{pnames}}{the names of parameters}
+\item{\code{pnames}}{the names of free parameters}
 
-\item{\code{p_prior}}{a prior object storing the subject-level prior distribution.}
+\item{\code{p_prior}}{a list storing the subject-level prior (joint) distribution.}
 
-\item{\code{h_prior}}{a prior object storing the population-level distribution
-(location and scale distributions).}
+\item{\code{h_prior}}{a list storing the population-level prior (joint) distribution
+(location and scale distributions). `h` stands for hyper-level.}
 }}
 

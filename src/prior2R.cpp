@@ -3,7 +3,8 @@
 
 //' Print a joint distribution
 //'
-//' The function prints the distribution specification C++ funcitons received
+//' The function prints the distribution specification that C++
+//' funcitons have received.
 //'
 //' @name print_prior
 //' @param p_prior_r A List containing prior distribution specifications.
@@ -12,15 +13,9 @@
 //' \describe{Character vector describing the prior distribution}
 //'
 //' @details
-//' These functions provide the core computational methods for prior
-//' distributions:
-//'  \itemize{
-//'   \item `print_prior`: Returns a textual description of the prior
-//'         specification
-//' }
-//'
-//' The prior specification (`p_prior_r`) should be a List with elements
-//' from the \code{BuildPrior}.
+//' This function is primarily, for debugging purpose. The prior
+//' specification (`p_prior_r`) should be a List with elements from
+//' the \code{BuildPrior}.
 //'
 //' @examples
 //' p0 <- c(A = 0.15, B = 0.45, mean_v = 2.25, sd_v = 0.15, t0 = 0.2)
@@ -60,7 +55,7 @@ std::vector<std::string> print_prior(const Rcpp::List &p_prior_r)
 //' @return
 //' \describe{
 //'   \item{`dprior`}{an R vector of prior density values}
-//'   \item{`rprior`}{an R matrix of random samples (n rows × parameters
+//'   \item{`rprior`}{an R matrix of random samples (n rows × nparameter
 //'               columns)}
 //'  }
 //'

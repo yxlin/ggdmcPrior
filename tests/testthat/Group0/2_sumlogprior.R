@@ -1,4 +1,4 @@
-q(save = "no")
+# q(save = "no")
 cat("\n-------------------- Testing distributions  --------------------\n")
 pkg <- c("ggdmcPrior")
 suppressPackageStartupMessages(tmp <- sapply(pkg, require, character.only = TRUE))
@@ -61,16 +61,6 @@ norm_prior <- BuildPrior(
     log_p = rep(FALSE, 5)
 )
 
-
-print(plot_prior(tnorm_prior, font_size = 2.5, cex = 2.5))
-print(plot_prior(gamma_prior, font_size = 2.5, cex = 2.5))
-print(plot_prior(lnorm_prior, font_size = 2.5, cex = 2.5))
-print(plot_prior(cauchy_prior, font_size = 2.5, cex = 2.5))
-print(plot_prior(unif_prior, font_size = 2.5, cex = 2.5))
-print(plot_prior(norm_prior, font_size = 2.5, cex = 2.5))
-
-
-
 nparameter <- length(p0)
 for (i in seq_len(nparameter)) {
     tnorm_prior[[i]]$log_p <- TRUE
@@ -81,13 +71,6 @@ for (i in seq_len(nparameter)) {
     unif_prior[[i]]$log_p <- TRUE
     norm_prior[[i]]$log_p <- TRUE
 }
-res <- print_prior(tnorm_prior)
-res <- print_prior(gamma_prior)
-res <- print_prior(lnorm_prior)
-res <- print_prior(cauchy_prior)
-res <- print_prior(unif_prior)
-res <- print_prior(norm_prior)
-
 
 
 set.seed(123)
@@ -101,7 +84,7 @@ res4 <- sumlogprior(p_prior_r = unif_prior, parameters_r = parameters_r)
 res5 <- sumlogprior(p_prior_r = norm_prior, parameters_r = parameters_r)
 
 results <- c(res0, res1, res2, res3, res4, res5)
-
+results
 
 expected_values <- c(
     -115.54847, -333.36507, -622.87486, -33.23947, -5e+10, -11299.89563

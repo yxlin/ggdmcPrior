@@ -13,18 +13,13 @@ print_prior(p_prior_r)
 \describe{Character vector describing the prior distribution}
 }
 \description{
-The function prints the distribution specification C++ funcitons received
+The function prints the distribution specification that C++
+funcitons have received.
 }
 \details{
-These functions provide the core computational methods for prior
-distributions:
- \itemize{
-  \item `print_prior`: Returns a textual description of the prior
-        specification
-}
-
-The prior specification (`p_prior_r`) should be a List with elements
-from the \code{BuildPrior}.
+This function is primarily, for debugging purpose. The prior
+specification (`p_prior_r`) should be a List with elements from
+the \code{BuildPrior}.
 }
 \examples{
 p0 <- c(A = 0.15, B = 0.45, mean_v = 2.25, sd_v = 0.15, t0 = 0.2)

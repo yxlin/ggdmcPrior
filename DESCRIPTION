@@ -1,8 +1,8 @@
 Package: ggdmcPrior
 Type: Package
-Title: ggdmc module for standard and truncated distributions
+Title: Prior Probability Functions of the Standard and Truncated Distribution
 Version: 0.2.8.9
-Date: 2024-06-26
+Date: 2024-06-27
 Authors@R: c(person(given = "Yi-Shin", family = "Lin", role = c("aut", "cre"), email = "yishinlin001@gmail.com"))
 Maintainer: Yi-Shin Lin <yishinlin001@gmail.com>
 Description: This package provides functions for specifying and evaluating 

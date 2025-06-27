@@ -258,7 +258,7 @@ plot_prior <- function(p_prior, font_size = 5, cex = 5, return_data = FALSE) {
 #' @param p0 the first parameter of a distribution (e.g., mean, shape1, etc.).
 #' @param p1 the second parameter of a distribution (e.g., sd, shape2, etc.).
 #' @param lower lower support (boundary). Default is \code{NA},
-#' which will be converted to a real value or Inf based on the distribution
+#' which will be converted to a real value or -Inf based on the distribution
 #' type.
 #' @param upper upper support (boundary). Default is \code{NA}, which will be
 #' converted to a real value or Inf based on the distribution type.

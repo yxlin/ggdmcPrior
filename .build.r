@@ -1,9 +1,32 @@
 q(save = "no")
 
-devtools::install()
+tools::showNonASCIIfile("DESCRIPTION")
+
+usethis::use_gpl_license(version = 2) # or use_gpl_license(version = 2)
+devtools::check(manual = TRUE, cran = TRUE) # Generates a PDF manual if needed
+devtools::check()
+
 devtools::build()
+devtools::install()
 devtools::document()
 devtools::install(quick = TRUE, upgrade = "never")
+
+
+rhub::rhub_setup()
+rhub::rhub_platforms()
+
+rhub::rhub_doctor()
+clang20_R_devel <- rhub::rhub_check(
+    gh_url = "https://github.com/yxlin/ggdmcPrior",
+    platforms = "clang20"
+)
+
+windows_R_devel <- rhub::rhub_check(
+    gh_url = "https://github.com/yxlin/ggdmcPrior",
+    platforms = "windows"
+)
+
+
 
 
 devtools::test()
