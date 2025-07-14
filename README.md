@@ -156,7 +156,7 @@ results <- c(res0, res1, res2, res3, res4, res5)
 ```
 
 # Prerequisites
-R (>= 3.3.0), Rcpp (>= 1.0.7), RcppArmadillo (>= 0.10.7.5.0), ggdmcHeaders, lattice.
+R (>= 3.5.0), Rcpp (>= 1.0.7), RcppArmadillo (>= 0.10.7.5.0), ggdmcHeaders, lattice.
 
 See DESCRIPTION for details
 
