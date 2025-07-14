@@ -12,7 +12,7 @@ Imports:
     Rcpp (>= 1.0.7),
     methods,
     lattice
-Depends: R (>= 3.3.0)
+Depends: R (>= 3.5.0)
 LinkingTo: 
     Rcpp (>= 1.0.7), 
     RcppArmadillo (>= 0.10.7.5.0),
