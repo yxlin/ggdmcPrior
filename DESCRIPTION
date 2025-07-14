@@ -2,13 +2,11 @@ Package: ggdmcPrior
 Type: Package
 Title: Prior Probability Functions of the Standard and Truncated Distribution
 Version: 0.2.8.9
-Date: 2024-06-27
+Date: 2024-07-14
 Authors@R: c(person(given = "Yi-Shin", family = "Lin", role = c("aut", "cre"), email = "yishinlin001@gmail.com"))
 Maintainer: Yi-Shin Lin <yishinlin001@gmail.com>
-Description: This package provides functions for specifying and evaluating 
-    standard and truncated distributions, designed to work with the ggdmc 
-    package. It supports Bayesian computation and includes utilities 
-    for density calculation, sampling, and visualisation.
+Description: This package provides tools for specifying and evaluating 
+    standard and truncated probability distributions, with support for log-space computation and joint distribution specification. It is designed to integrate seamlessl with the 'ggdmc' package, enabling Bayesian computation for cognition models. The package includes utilities for density calculation, sampling, and visualisation, making it easier to define priors and assess model behaviour in hierarchical Bayesian framework.
 License: GPL (>= 2)  
 Imports: 
     Rcpp (>= 1.0.7),
