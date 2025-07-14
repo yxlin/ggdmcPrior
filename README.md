@@ -1,8 +1,9 @@
 # ggdmcPrior
-ggdmcPrior provides functions for specifying and evaluating standard distributions, designed to work with the ggdmc package. It supports Bayesian computation and includes utilities for density calculation, sampling, and visualisation.
-
+This package provides tools for specifying and evaluating standard and truncated probability distributions, with support for log-space computation and joint distribution specification. It is designed to integrate seamlessl with the 'ggdmc' package, enabling Bayesian computation for cognition models. The package includes utilities for density calculation, sampling, and visualisation, making it easier to define priors and assess model behaviour in hierarchical Bayesian framework.
+    
+    
 # Getting Started
-The package is mainly to support ggdmc, so you can use it together with other ggdmc supporting packages.
+Although the package can be used independently, it is primarily intended to support the 'ggdmc' package, and is best used alongside other packages in the 'ggdmc' ecosystem.
 
 ```
 cat("\n--------- Printing the joint prior distribution in C++-------\n")
@@ -53,7 +54,7 @@ p0 <- plot_prior(p_prior)
 
 ```
 
-Six different standard statistical distributions are included in ggdmcPrior.
+The 'ggdmcPrior' package supports six standard statistical distributions—normal, truncated or regular normal, gamma, lognormal, Cauchy, and uniform—making it easy to define and evaluate priors for Bayesian cognitive modeling.
 
 ```
 p0 <- c(A = 0.15, B = 0.45, mean_v = 2.25, sd_v = 0.15, t0 = 0.2)
