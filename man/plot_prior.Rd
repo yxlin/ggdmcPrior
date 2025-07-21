@@ -2,41 +2,40 @@
 % Please edit documentation in R/ggdmcPrior.R
 \name{plot_prior}
 \alias{plot_prior}
-\title{Visualise distributions}
+\title{Visualise Distributions}
 \usage{
 plot_prior(p_prior, font_size = 5, cex = 5, return_data = FALSE)
 }
 \arguments{
-\item{p_prior}{A list of distribution specifications, where each element
-is a list containing:
-       \describe{
-         \item{dist}{Character specifying the distribution ("tnorm",
-                     "beta", "gamma", "lnorm", "cauchy", "unif", "norm")}
-         \item{p0}{First parameter of the distribution}
-         \item{p1}{Second parameter of the distribution (where applicable)}
-         \item{lower}{Optional vector specifying lower bounds (for
-            truncated distributions)}
-         \item{upper}{Optional vector specifying upper bounds (for
-            truncated distributions)}
-         \item{log_p}{Logical indicating whether to compute log densities}
- }}
+\item{p_prior}{A list of distribution specifications. Each element should be
+a list containing:
+  \describe{
+    \item{\code{dist}}{A character string specifying the distribution type.
+      Supported values include: \code{"tnorm"}, \code{"beta"}, \code{"gamma"},
+      \code{"lnorm"}, \code{"cauchy"}, \code{"unif"}, and \code{"norm"}.}
+    \item{\code{p0}}{The first parameter of the distribution.}
+    \item{\code{p1}}{The second parameter of the distribution (if applicable).}
+    \item{\code{lower}}{Optional lower bound (used for truncated distributions).}
+    \item{\code{upper}}{Optional upper bound (used for truncated distributions).}
+    \item{\code{log_p}}{Logical indicating whether to compute log-densities.}
+  }}
 
-\item{font_size}{Numeric base font size for plot labels (default = 5).}
+\item{font_size}{Numeric. Base font size for plot labels. Defaults to 5.}
 
-\item{cex}{Numeric scaling factor for plot elements (default = 5).}
+\item{cex}{Numeric. Scaling factor for plot elements. Defaults to 5.}
 
-\item{return_data}{Logical indicating whether to return the calculated
-density data instead of plotting (default = FALSE).}
+\item{return_data}{Logical. If \code{TRUE}, returns the computed density data instead
+of plotting. Defaults to \code{FALSE}.}
 }
 \value{
-If `return_data = FALSE` (default), returns a lattice object showing
-the prior densities. If `return_data = TRUE`, returns a data frame:
-        \itemize{
-          \item \code{x}: \code{npoint} x values generated based on the heuristic
-                           set in \code{generate_x_value} internal function.
-          \item \code{y}: the corresponding density values
-          \item \code{gp}: Parameter names corresponding to each value
-        }
+If \code{return_data = FALSE} (default), a lattice plot object is returned
+displaying the density curves for each prior. If \code{return_data = TRUE}, a data
+frame is returned with the following columns:
+\itemize{
+  \item \code{x}: Numeric vector of x-values generated for each prior using a heuristic.
+  \item \code{y}: Corresponding density (or log-density) values.
+  \item \code{gp}: Group label or parameter name for each distribution.
+}
 }
 \description{
 Plots density curves for specified distributions to help visualise
@@ -45,15 +44,14 @@ their shape and domain.
 \details{
 This function:
 \itemize{
-  \item Automatically determines appropriate x-axis ranges based on each
-        prior's properties
-  \item Handles both bounded and unbounded distributions
-  \item Supports all distribution types available in the package
+  \item Automatically determines appropriate x-axis ranges based on each distribution's properties.
+  \item Handles both truncated and unbounded distributions.
+  \item Supports all distribution types implemented in the package.
 }
 
-For truncated distributions, the plot shows the density within the specified
-bounds. The function automatically generates appropriate axis limits and
-labels for each prior.
+For truncated distributions, the density is plotted only within the specified bounds.
+A heuristic is used to generate axis limits and labels using the internal
+\code{generate_x_value} function.
 }
 \examples{
 # Define a joint distribution

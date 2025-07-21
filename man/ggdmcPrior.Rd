@@ -6,10 +6,12 @@
 \alias{ggdmcPrior}
 \title{ggdmc module for standard and truncated distributions}
 \description{
-\pkg{ggdmcPrior} provides functions for specifying and evaluating standard
-distributions, designed to work with the ggdmc package. It supports Bayesian
-computation and includes utilities for density calculation, sampling,
-and visualisation.
+Provides tools for specifying and evaluating standard and truncated
+probability distributions, with support for log-space computation and
+joint distribution specification. It enables Bayesian computation for
+cognition models and includes utilities for density calculation, sampling,
+and visualisation, facilitating prior distribution specification and model
+assessment in hierarchical Bayesian frameworks.
 }
 \author{
 Yi-Shin Lin <yishinlin001@gmail.com>

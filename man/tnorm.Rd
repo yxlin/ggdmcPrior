@@ -5,7 +5,7 @@
 \alias{rtnorm}
 \alias{ptnorm}
 \alias{dtnorm}
-\title{Truncated normal distribution}
+\title{Truncated Normal Distribution Functions}
 \usage{
 rtnorm(n, p0, p1, lower, upper)
 
@@ -14,50 +14,51 @@ ptnorm(x, p0, p1, lower, upper, lower_tail, log_p = FALSE)
 dtnorm(x, p0, p1, lower, upper, log_p = FALSE)
 }
 \arguments{
-\item{n}{Number of random variates to generate (for `rtnorm`).}
+\item{n}{Integer. Number of random variates to generate (for \code{rtnorm}).}
 
-\item{p0}{Mean of the underlying normal distribution.}
+\item{p0}{Mean of the underlying (untruncated) normal distribution.}
 
-\item{p1}{Standard deviation of the underlying normal distribution.}
+\item{p1}{Standard deviation of the underlying normal distribution. Must be positive.}
 
-\item{lower}{Lower truncation bound.}
+\item{lower}{Lower bound of truncation (can be \code{-Inf}).}
 
-\item{upper}{Upper truncation bound.}
+\item{upper}{Upper bound of truncation (can be \code{Inf}).}
 
-\item{x}{Vector of quantiles (for `dtnorm` and `ptnorm`).}
+\item{x}{Numeric vector of quantiles (for \code{dtnorm} and \code{ptnorm}).}
 
-\item{lower_tail}{Logical; if TRUE (default), probabilities are
-\deqn{P[X \leq x]}, otherwise P[X > x].}
+\item{lower_tail}{Logical; if \code{TRUE} (default), probabilities are
+computed as \eqn{P[X \leq x]}, otherwise \eqn{P[X > x]}.}
 
-\item{log_p}{Logical; if TRUE, probabilities/densities p are returned as
-log(p).}
+\item{log_p}{Logical; if \code{TRUE}, probabilities or densities are returned on the log scale.}
 }
 \value{
 \describe{
-  \item{`rtnorm`}{NumericVector of random variates from the truncated
-         normal}
- \item{`ptnorm`}{NumericVector of cumulative probabilities}
- \item{`dtnorm`}{NumericVector of density values}
+  \item{\code{rtnorm}}{A numeric vector of length \code{n}, containing random variates from the truncated normal distribution.}
+  \item{\code{ptnorm}}{A numeric vector of cumulative probabilities evaluated at \code{x}.}
+  \item{\code{dtnorm}}{A numeric vector of (log) density values evaluated at \code{x}.}
 }
-
- @details
- These functions implement the truncated normal distribution:
- \itemize{
-   \item `rtnorm`: Random number generation using inverse transform sampling
-   \item `ptnorm`: Cumulative distribution function (CDF)
-   \item `dtnorm`: Probability density function (PDF)
- }
-
-The distribution is defined as:
-\deqn{X \sim \mathcal{N}(\mu, \sigma^2), \text{truncated to } [a, b]}
-where \eqn{\mu = p0}, \eqn{\sigma = p1}, \eqn{a = lower}, \eqn{b = upper}.
 }
 \description{
-Density, distribution function, and random generation for the truncated
-normal distribution with mean `p0`, standard deviation `p1`, and bounds
-[`lower`, `upper`].
+Density, distribution function, and random number generation for the 
+truncated normal distribution with mean \code{p0}, standard deviation 
+\code{p1}, and truncation bounds \code{[lower, upper]}.
+}
+\details{
+These functions implement the truncated normal distribution:
+\itemize{
+  \item \code{rtnorm}: Generates random samples using inverse transform sampling.
+  \item \code{ptnorm}: Computes the cumulative distribution function (CDF).
+  \item \code{dtnorm}: Computes the probability density function (PDF).
+}
+
+The truncated normal distribution is defined as:
+\deqn{X \sim \mathcal{N}(\mu, \sigma^2), \quad \text{truncated to } [a, b]}
+where \eqn{\mu = \code{p0}}, \eqn{\sigma = \code{p1}}, \eqn{a = \code{lower}}, and \eqn{b = \code{upper}}.
+
+Truncation can be one-sided (e.g., \code{lower = 0}, \code{upper = Inf}) or two-sided.
 }
 \examples{
+# Generate random samples from truncated normal
 n <- 1e5
 p0 <- 0
 p1 <- 1
@@ -65,31 +66,30 @@ lower <- 0
 upper <- Inf
 rtnorm_dat <- rtnorm(n, p0, p1, lower, upper)
 
-## dtnorm example
+# Density at quantiles
 x <- seq(-5, 5, length.out = 1e3)
 dtnorm_dat <- dtnorm(x, p0, p1, lower = -2, upper = 2, log_p = FALSE)
+
+# Cumulative probabilities
 q <- seq(-5, 5, length.out = 1e3)
+ptnorm_dat <- ptnorm(q, p0, p1, lower = -2, upper = 3, 
+                     lower_tail = TRUE, log_p = FALSE)
 
-ptnorm_dat <- ptnorm(q, p0, p1, lower = -2, upper = 3, lower_tail = TRUE,
-                 log_p = FALSE)
-
+# Plotting
 cex_lab <- 1
 cex_axis <- 0.5
 line_width <- 1.5
 
-hist(rtnorm_dat, breaks = "fd", freq = FALSE, xlab = "", cex.lab = cex_lab,
-cex.axis = cex_axis, main = "" )
+hist(rtnorm_dat, breaks = "fd", freq = FALSE, xlab = "", 
+     cex.lab = cex_lab, cex.axis = cex_axis, main = "")
 plot(x, dtnorm_dat, type = "l", lwd = line_width, xlab = "",
-ylab = "Density", cex.lab = cex_lab, cex.axis = cex_axis, main = "")
+     ylab = "Density", cex.lab = cex_lab, cex.axis = cex_axis, main = "")
 
 }
 \references{
 \itemize{
-  \item RcppTN package by Jonathan Olmsted (RcppTN 0.1-8)
-        \url{https://github.com/olmjo/RcppTN}
-  \item msm package by Christopher Jackson
-        \url{https://cran.r-project.org/package=msm}
-  \item Robert, C.P. (1995). "Simulation of truncated normal variables".
-    Statistics and Computing, 5(2), 121-125. \doi{10.1007/BF00143942}
- }
+  \item Olmsted, J. (2020). \emph{RcppTN: Rcpp-Based Truncated Normal Distribution}. \url{https://github.com/olmjo/RcppTN}
+  \item Jackson, C. (2011). \pkg{msm}: Multi-state Modelling. \url{https://cran.r-project.org/package=msm}
+  \item Robert, C. P. (1995). "Simulation of truncated normal variables." \emph{Statistics and Computing}, 5(2), 121–125. \doi{10.1007/BF00143942}
+}
 }

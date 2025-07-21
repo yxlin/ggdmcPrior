@@ -3,20 +3,54 @@
 \docType{class}
 \name{prior-class}
 \alias{prior-class}
-\title{An S4 class  to represent the joint distribution.}
+\title{An S4 Class to Represent a Joint Prior Distribution}
+\value{
+An S4 object of class \code{"prior"}, used in computing prior 
+densities and visualising prior distributions.
+}
 \description{
-An S4 class  to represent the joint distribution.
+This class encapsulates the structure of prior distributions used in 
+hierarchical Bayesian modelling. It stores both subject-level and 
+population-level (hyperparameter) priors for a model’s parameters, 
+and is used in Bayesian inference workflows, particularly with 
+models from the \pkg{lbaModel} or \pkg{ddModel} packages.
 }
 \section{Slots}{
 
 \describe{
-\item{\code{nparameter}}{the number of free parameters}
+\item{\code{nparameter}}{Integer. Number of free parameters in the model.}
 
-\item{\code{pnames}}{the names of free parameters}
+\item{\code{pnames}}{Character vector. Names of the free parameters.}
 
-\item{\code{p_prior}}{a list storing the subject-level prior (joint) distribution.}
+\item{\code{p_prior}}{List. Represents the joint prior distribution at the subject
+level, usually constructed from standard or truncated distributions.}
 
-\item{\code{h_prior}}{a list storing the population-level prior (joint) distribution
-(location and scale distributions). `h` stands for hyper-level.}
+\item{\code{h_prior}}{List. Representing the joint prior at the population 
+level, typically containing location and scale parameters for hierarchical
+models. The 'h' prefix refers to hyperparameters.}
 }}
 
+\section{Structure}{
+
+An object of class \code{"prior"} contains the following components:
+\describe{
+  \item{\code{nparameter}}{Number of free parameters.}
+  \item{\code{pnames}}{Names of the model's free parameters.}
+  \item{\code{p_prior}}{Subject-level prior specification. Conceptually
+analogous to the model likelihood in a hierarchical Bayesian model.}
+  \item{\code{h_prior}}{Hyperparameter-level (group-level) prior specification.}
+}
+}
+
+\section{Usage}{
+
+Used to define priors for hierarchical Bayesian cognitive models. This 
+class allows structured specification of priors at both individual and 
+group levels. Prior objects are commonly constructed using 
+\code{\link{set_priors}}, which integrates multiple \code{\link{BuildPrior}} 
+outputs into a single prior structure.
+}
+
+\seealso{
+\code{\link{BuildPrior}}
+}

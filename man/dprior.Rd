@@ -3,39 +3,45 @@
 \name{dprior}
 \alias{dprior}
 \alias{rprior}
-\title{Density and random number generation}
+\title{Density and Random Number Generation for a Join Prior Distribution}
 \usage{
 dprior(p_prior_r, parameters_r)
 
 rprior(p_prior_r, n = 1L)
 }
 \arguments{
-\item{p_prior_r}{A List containing distribution specifications (usually
-specified in \code{BuildPrior} function).}
+\item{p_prior_r}{A list specifying the prior distribution, typically 
+constructed using \code{\link{BuildPrior}}.}
 
-\item{parameters_r}{For `dprior`: A NumericVector of parameter values at
-which to evaluate the prior density.}
+\item{parameters_r}{For \code{dprior}: A numeric vector of parameter values 
+at which the prior log-density should be evaluated.}
 
-\item{n}{For `rprior`: Number of random samples to generate (default = 1).}
+\item{n}{For \code{rprior}: Integer specifying the number of random samples 
+to generate (default is 1).}
 }
 \value{
 \describe{
-  \item{`dprior`}{an R vector of prior density values}
-  \item{`rprior`}{an R matrix of random samples (n rows × nparameter
-              columns)}
- }
+  \item{\code{dprior}}{A numeric vector of log-density values.}
+  \item{\code{rprior}}{A numeric matrix of dimension \code{n} × \code{nparameter}, 
+    containing samples from the prior distribution. Each row is one sample.}
+}
 }
 \description{
-\code{dprior} computes the density for a joint distribution. \code{rprior}
-generates random numbers based on the specification in the \code{p_prior_r}
+\code{dprior} computes the log-density of a joint prior distribution at a 
+given set of parameter values. \code{rprior} generates random samples from 
+the same joint prior specification.
 }
 \details{
-These functions provide the core computational methods for prior
-distributions:
- \itemize{
-  \item `dprior`: Evaluates the prior probability density function
-  \item `rprior`: Generates random samples from the prior distribution
+These functions implement the core computations for evaluating and sampling 
+from a joint prior distribution specified via \code{\link{BuildPrior}}:
+\itemize{
+  \item \code{dprior}: Evaluates the log-density of the joint prior at the 
+    given parameter values.
+  \item \code{rprior}: Draws independent samples from the specified joint prior.
 }
+
+The joint prior may include truncated normal, beta, gamma, and other common 
+distributions, possibly bounded by user-specified lower and upper limits.
 }
 \examples{
 p0 <- c(A = 0.15, B = 0.45, mean_v = 2.25, sd_v = 0.15, t0 = 0.2)
@@ -49,16 +55,17 @@ p_prior <- BuildPrior(
     log_p = rep(TRUE, 5)
 )
 
-# Test dprior -----------------
-parameters <- seq(0.1, 0.5, 0.1)
+# Evaluate log-density
+parameters <- seq(0.1, 0.5, by = 0.1)
 res0 <- dprior(p_prior, parameters)
 res1 <- dnorm(parameters, p0, 0.1, TRUE)
 print(res0)
 print(res1)
 
-# Test rprior -----------------
+# Generate samples from the prior
 res2 <- rprior(p_prior, 1)
-print(res2)
 res3 <- rprior(p_prior, 2)
+print(res2)
 print(res3)
+
 }

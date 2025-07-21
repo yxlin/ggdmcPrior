@@ -2,48 +2,47 @@
 % Please edit documentation in R/RcppExports.R
 \name{sumlogprior}
 \alias{sumlogprior}
-\title{Sum of joint densities}
+\title{Sum of Log Prior Densities for a Joint Prior Distribution}
 \usage{
 sumlogprior(p_prior_r, parameters_r)
 }
 \arguments{
-\item{p_prior_r}{A List of prior specifications, where each element is
-               itself a List containing the distribution details
-               for one parameter. Each sublist should contain:
-\itemize{
-   \item \code{p0}: The first parameter of the distribution.
-   \item \code{p1}: The second parameter of the distribution.
-   \item \code{lower}: The lower bound of the distribution.
-   \item \code{upper}: The upper bound of the distribution.
-   \item \code{dist}: A numeric code representing the distribution type.
-   \item \code{log_p}: Logical indicating whether probabilities
-                       are logged.
- }}
+\item{p_prior_r}{A list of prior specifications. Each element is itself a 
+list specifying the prior for one parameter, typically created by 
+\code{\link{BuildPrior}}. Each sublist should contain:
+  \itemize{
+    \item \code{p0}: First parameter of the distribution (e.g., mean).
+    \item \code{p1}: Second parameter (e.g., standard deviation or shape).
+    \item \code{lower}: Lower bound for the parameter (if applicable).
+    \item \code{upper}: Upper bound (if applicable).
+    \item \code{dist}: Character string specifying the distribution type.
+    \item \code{log_p}: Logical; should be \code{TRUE} for log-density computation.
+  }}
 
-\item{parameters_r}{A NumericVector of parameter values at which to
-evaluate the densities. The length should match
-the length of \code{p_prior_r}.}
+\item{parameters_r}{A numeric vector of parameter values at which to
+evaluate the prior. Must be the same length as \code{p_prior_r}.}
 }
 \value{
-A single double value representing the sum of log-prior densities:
-        \deqn{\sum_{i=1}^{k} \log p(\theta_i | \text{prior}_i)}
-        where \eqn{k} is the number of parameters.
+A single numeric value: the sum of log-densities evaluated at the given 
+parameter vector.
 }
 \description{
-Computes the sum of joint densities for a vector of parameters given
-the distribution specification. The function computes log densities
-only when the \code{log_p} is set to TRUE. This function can be
-used in Bayesian computations where the joint prior is the product
-of independent priors (sum in log-space).
+Computes the sum of log-densities for a vector of parameters, based on
+their respective prior distribution specifications. This function is used
+in Bayesian computations where the joint prior is the product of 
+independent priors—thus, the log of the joint prior is the sum of
+log-densities.
 }
 \details{
-This function:
+This function performs the following steps:
 \itemize{
-  \item Iterates through each parameter and its prior specification
-  \item Computes the log-density for each parameter value
-  \item Sums all log-density values
-  \item Returns the total sum (useful for log-posterior computation)
+  \item Iterates over each parameter and its associated prior specification
+  \item Evaluates the log-density for each parameter
+  \item Sums all log-densities to compute the joint log prior
 }
+
+This is useful, for example, in computing the log-posterior of hierarchical 
+Bayesian models where priors are assumed to be independent.
 }
 \examples{
 p0 <- c(A = 0.15, B = 0.45, mean_v = 2.25, sd_v = 0.15, t0 = 0.2)
@@ -57,6 +56,8 @@ tnorm_prior <- BuildPrior(
 )
 
 npar <- length(tnorm_prior)
-result <- sumlogprior(p_prior_r = tnorm_prior,
-                      parameters_r = runif(npar, 0, 10))
+theta <- runif(npar, 0, 10)
+result <- sumlogprior(p_prior_r = tnorm_prior, parameters_r = theta)
+print(result)
+
 }

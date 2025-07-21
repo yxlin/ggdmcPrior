@@ -5,8 +5,7 @@ Version: 0.2.8.9
 Date: 2024-07-14
 Authors@R: c(person(given = "Yi-Shin", family = "Lin", role = c("aut", "cre"), email = "yishinlin001@gmail.com"))
 Maintainer: Yi-Shin Lin <yishinlin001@gmail.com>
-Description: This package provides tools for specifying and evaluating 
-    standard and truncated probability distributions, with support for log-space computation and joint distribution specification. It is designed to integrate seamlessl with the 'ggdmc' package, enabling Bayesian computation for cognition models. The package includes utilities for density calculation, sampling, and visualisation, making it easier to define priors and assess model behaviour in hierarchical Bayesian framework.
+Description: Provides tools for specifying and evaluating standard and truncated probability distributions, with support for log-space computation and joint distribution specification. It enables Bayesian computation for cognition models and includes utilities for density calculation, sampling, and visualisation, facilitating prior distribution specification and model assessment in hierarchical Bayesian frameworks.
 License: GPL (>= 2)  
 Imports: 
     Rcpp (>= 1.0.7),
@@ -17,7 +16,7 @@ LinkingTo:
     Rcpp (>= 1.0.7), 
     RcppArmadillo (>= 0.10.7.5.0),
     ggdmcHeaders
-Suggests: testthat
+Suggests: testthat, ggdmcModel
 RoxygenNote: 7.3.2
 Encoding: UTF-8
 NeedsCompilation: yes

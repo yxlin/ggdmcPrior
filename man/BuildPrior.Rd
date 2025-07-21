@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggdmcPrior.R
 \name{BuildPrior}
 \alias{BuildPrior}
-\title{Build a joint prior distribution}
+\title{Build a Joint Prior Distribution}
 \usage{
 BuildPrior(
   p0,
@@ -56,8 +56,8 @@ prior definition.
 parameter is assigned one probability distribution.
 \code{p0} and \code{p1} refer to the first and second parameters.
 I use the convention of the 0-based index to work with the C++ and the
-Python system package (coming soon). \code{p0} must comes with parameter
-names.
+Python sister package, 'pydmc' (coming soon). \code{p0} must comes with 
+parameter names.
 }
 \details{
 Seven distributions are implemented:

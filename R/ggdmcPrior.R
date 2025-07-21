@@ -1,9 +1,11 @@
 #' ggdmc module for standard and truncated distributions
 #'
-#' \pkg{ggdmcPrior} provides functions for specifying and evaluating standard
-#' distributions, designed to work with the ggdmc package. It supports Bayesian
-#' computation and includes utilities for density calculation, sampling,
-#' and visualisation.
+#' Provides tools for specifying and evaluating standard and truncated
+#' probability distributions, with support for log-space computation and
+#' joint distribution specification. It enables Bayesian computation for
+#' cognition models and includes utilities for density calculation, sampling,
+#' and visualisation, facilitating prior distribution specification and model
+#' assessment in hierarchical Bayesian frameworks.
 #'
 #' @keywords package
 #' @name ggdmcPrior
@@ -14,10 +16,10 @@
 "_PACKAGE"
 NULL
 
-### Helper functions ------
-
+## Helper functions ------
 #' @importFrom stats setNames
-.merge_priors <- function(location, scale, loc_name = "loc_", sca_name = "sca_") {
+.merge_priors <- function(
+    location, scale, loc_name = "loc_", sca_name = "sca_") {
     loc_named <- setNames(location, paste0(loc_name, names(location)))
     scale_named <- setNames(scale, paste0(sca_name, names(scale)))
     c(loc_named, scale_named)
@@ -56,16 +58,18 @@ create_param_list <- function(p0, p1, lower, upper, dist_id, log_p) {
 
 generate_x_values <- function(dist, p, npoint) {
     switch(dist,
-        { # 1: Truncated normal (tnorm)
+        {
+            # 1: Truncated normal (tnorm)
             lb <- pmax(p$lower, p[[1]] - 3 * p[[2]])
             ub <- pmin(p$upper, p[[1]] + 3 * p[[2]])
             seq(lb, ub, length.out = npoint)
         },
-        { # 2: Beta (beta)
+        {
+            # 2: Beta (beta)
             # The Beta distribution is defined on the interval [0, 1].  It's a
-            # probability distribution describing the probability of proportions
-            # or fractions.  Therefore, it doesn't make sense to evaluate it outside
-            # of that range
+            # probability distribution describing the probability of
+            # proportions or fractions.  Therefore, it doesn't make sense to
+            # evaluate it outside of that range
             lb <- p$lower
             ub <- p$upper
             seq(lb, ub, length.out = npoint)
@@ -132,52 +136,51 @@ generate_prior_data <- function(p_prior, npoint = 100L) {
     return(d)
 }
 
-### External functions --------------------
+## External functions --------------------
 
-#' Visualise distributions
+#' Visualise Distributions
 #'
 #' Plots density curves for specified distributions to help visualise
 #' their shape and domain.
 #'
-#' @param p_prior A list of distribution specifications, where each element
-#' is a list containing:
-#'        \describe{
-#'          \item{dist}{Character specifying the distribution ("tnorm",
-#'                      "beta", "gamma", "lnorm", "cauchy", "unif", "norm")}
-#'          \item{p0}{First parameter of the distribution}
-#'          \item{p1}{Second parameter of the distribution (where applicable)}
-#'          \item{lower}{Optional vector specifying lower bounds (for
-#'             truncated distributions)}
-#'          \item{upper}{Optional vector specifying upper bounds (for
-#'             truncated distributions)}
-#'          \item{log_p}{Logical indicating whether to compute log densities}
-#'  }
-#' @param font_size Numeric base font size for plot labels (default = 5).
-#' @param cex Numeric scaling factor for plot elements (default = 5).
-#' @param return_data Logical indicating whether to return the calculated
-#' density data instead of plotting (default = FALSE).
+#' @param p_prior A list of distribution specifications. Each element should be
+#' a list containing:
+#'   \describe{
+#'     \item{\code{dist}}{A character string specifying the distribution type.
+#'       Supported values include: \code{"tnorm"}, \code{"beta"}, \code{"gamma"},
+#'       \code{"lnorm"}, \code{"cauchy"}, \code{"unif"}, and \code{"norm"}.}
+#'     \item{\code{p0}}{The first parameter of the distribution.}
+#'     \item{\code{p1}}{The second parameter of the distribution (if applicable).}
+#'     \item{\code{lower}}{Optional lower bound (used for truncated distributions).}
+#'     \item{\code{upper}}{Optional upper bound (used for truncated distributions).}
+#'     \item{\code{log_p}}{Logical indicating whether to compute log-densities.}
+#'   }
 #'
-#' @return If `return_data = FALSE` (default), returns a lattice object showing
-#' the prior densities. If `return_data = TRUE`, returns a data frame:
-#'         \itemize{
-#'           \item \code{x}: \code{npoint} x values generated based on the heuristic
-#'                            set in \code{generate_x_value} internal function.
-#'           \item \code{y}: the corresponding density values
-#'           \item \code{gp}: Parameter names corresponding to each value
-#'         }
+#' @param font_size Numeric. Base font size for plot labels. Defaults to 5.
+#' @param cex Numeric. Scaling factor for plot elements. Defaults to 5.
+#' @param return_data Logical. If \code{TRUE}, returns the computed density data instead
+#' of plotting. Defaults to \code{FALSE}.
+#'
+#' @return If \code{return_data = FALSE} (default), a lattice plot object is returned
+#' displaying the density curves for each prior. If \code{return_data = TRUE}, a data
+#' frame is returned with the following columns:
+#' \itemize{
+#'   \item \code{x}: Numeric vector of x-values generated for each prior using a heuristic.
+#'   \item \code{y}: Corresponding density (or log-density) values.
+#'   \item \code{gp}: Group label or parameter name for each distribution.
+#' }
 #'
 #' @details
 #' This function:
 #' \itemize{
-#'   \item Automatically determines appropriate x-axis ranges based on each
-#'         prior's properties
-#'   \item Handles both bounded and unbounded distributions
-#'   \item Supports all distribution types available in the package
+#'   \item Automatically determines appropriate x-axis ranges based on each distribution's properties.
+#'   \item Handles both truncated and unbounded distributions.
+#'   \item Supports all distribution types implemented in the package.
 #' }
 #'
-#' For truncated distributions, the plot shows the density within the specified
-#' bounds. The function automatically generates appropriate axis limits and
-#' labels for each prior.
+#' For truncated distributions, the density is plotted only within the specified bounds.
+#' A heuristic is used to generate axis limits and labels using the internal
+#' \code{generate_x_value} function.
 #'
 #' @examples
 #' # Define a joint distribution
@@ -200,7 +203,7 @@ plot_prior <- function(p_prior, font_size = 5, cex = 5, return_data = FALSE) {
     p0 <- xyplot(y ~ x | gp,
         data = d,
         type = "l", # Line plot
-        xlab = "", # Empty x-axis label
+        xlab = "",  # Empty x-axis label
         ylab = "Density", # y-axis label
         layout = c(1, length(unique(d$gp))), # Arrange facets in 1 row
         auto.key = FALSE,
@@ -208,7 +211,7 @@ plot_prior <- function(p_prior, font_size = 5, cex = 5, return_data = FALSE) {
         par.settings = list(
             fontsize = list(text = font_size, points = 10), # General font size
             par.xlab.text = list(cex = cex), # X-axis label size (if needed)
-            par.ylab.text = list(cex = cex) # Y-axis label size (if needed)
+            par.ylab.text = list(cex = cex)  # Y-axis label size (if needed)
         ),
         par.strip.text = list(cex = font_size * 0.9) # Adjust facet label (strip) font size
     )
@@ -222,15 +225,15 @@ plot_prior <- function(p_prior, font_size = 5, cex = 5, return_data = FALSE) {
 }
 
 
-#' Build a joint prior distribution
+#' Build a Joint Prior Distribution
 #'
 #' \code{BuildPrior} sets up a joint distribution of the prior. Each model
 #' parameter is assigned one probability distribution.
 #
 #' \code{p0} and \code{p1} refer to the first and second parameters.
 #' I use the convention of the 0-based index to work with the C++ and the
-#' Python system package (coming soon). \code{p0} must comes with parameter
-#' names.
+#' Python sister package, 'pydmc' (coming soon). \code{p0} must comes with 
+#' parameter names.
 #'
 #' Seven distributions are implemented:
 #' \enumerate{
