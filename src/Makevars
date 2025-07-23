@@ -1,7 +1,7 @@
 # Modified (more portable):
-PKG_CPPFLAGS = 
+# PKG_CPPFLAGS = 
 PKG_CXXFLAGS =
-PKG_CFLAGS = 
+PKG_CPPFLAGS = -D_FORTIFY_SOURCE=2
 
 PKG_LIBS = `$(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()"`
 
