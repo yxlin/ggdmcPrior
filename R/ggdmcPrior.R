@@ -197,21 +197,47 @@ generate_prior_data <- function(p_prior, npoint = 100L) {
 #'
 #' @import lattice
 #' @export
-plot_prior <- function(p_prior, font_size = 5, cex = 5, return_data = FALSE) {
+plot_prior <- function(p_prior,
+                       font_size = 5,
+                       cex = 5,
+                       return_data = FALSE,
+                       # auto-layout controls
+                       auto_layout = TRUE,
+                       panels_per_col = 5, # ~5 panels per column before adding another
+                       max_cols = 4, # cap columns so labels stay readable
+                       ncol_override = NULL # set to a number to force columns
+) {
+    # plot_prior <- function(p_prior, font_size = 5, cex = 5, return_data = FALSE)
     d <- generate_prior_data(p_prior)
 
-    p0 <- xyplot(y ~ x | gp,
+    # how many panels?
+    n_panels <- length(unique(d$gp))
+
+    # decide layout: lattice expects c(ncol, nrow)
+    if (!is.null(ncol_override)) {
+        ncol <- as.integer(ncol_override)
+    } else if (auto_layout) {
+        # Base rule: 1 col up to 5 panels, 2 cols up to 10, 3 up to 15, etc.
+        ncol <- max(1L, ceiling(n_panels / panels_per_col))
+        ncol <- min(ncol, max_cols)
+    } else {
+        ncol <- 1L
+    }
+    nrow <- ceiling(n_panels / ncol)
+    lay <- c(ncol, nrow)
+
+    p0 <- lattice::xyplot(y ~ x | gp,
         data = d,
         type = "l", # Line plot
-        xlab = "",  # Empty x-axis label
+        xlab = "", # Empty x-axis label
         ylab = "Density", # y-axis label
-        layout = c(1, length(unique(d$gp))), # Arrange facets in 1 row
+        layout = lay, # c(1, length(unique(d$gp))),
         auto.key = FALSE,
         scales = list(relation = "free", cex = cex),
         par.settings = list(
             fontsize = list(text = font_size, points = 10), # General font size
             par.xlab.text = list(cex = cex), # X-axis label size (if needed)
-            par.ylab.text = list(cex = cex)  # Y-axis label size (if needed)
+            par.ylab.text = list(cex = cex) # Y-axis label size (if needed)
         ),
         par.strip.text = list(cex = font_size * 0.9) # Adjust facet label (strip) font size
     )
@@ -232,7 +258,7 @@ plot_prior <- function(p_prior, font_size = 5, cex = 5, return_data = FALSE) {
 #
 #' \code{p0} and \code{p1} refer to the first and second parameters.
 #' I use the convention of the 0-based index to work with the C++ and the
-#' Python sister package, 'pydmc' (coming soon). \code{p0} must comes with 
+#' Python sister package, 'pydmc' (coming soon). \code{p0} must comes with
 #' parameter names.
 #'
 #' Seven distributions are implemented:

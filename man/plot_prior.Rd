@@ -4,7 +4,16 @@
 \alias{plot_prior}
 \title{Visualise Distributions}
 \usage{
-plot_prior(p_prior, font_size = 5, cex = 5, return_data = FALSE)
+plot_prior(
+  p_prior,
+  font_size = 5,
+  cex = 5,
+  return_data = FALSE,
+  auto_layout = TRUE,
+  panels_per_col = 5,
+  max_cols = 4,
+  ncol_override = NULL
+)
 }
 \arguments{
 \item{p_prior}{A list of distribution specifications. Each element should be

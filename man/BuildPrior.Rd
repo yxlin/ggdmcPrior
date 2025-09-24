@@ -56,7 +56,7 @@ prior definition.
 parameter is assigned one probability distribution.
 \code{p0} and \code{p1} refer to the first and second parameters.
 I use the convention of the 0-based index to work with the C++ and the
-Python sister package, 'pydmc' (coming soon). \code{p0} must comes with 
+Python sister package, 'pydmc' (coming soon). \code{p0} must comes with
 parameter names.
 }
 \details{
