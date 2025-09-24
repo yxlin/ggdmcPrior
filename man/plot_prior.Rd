@@ -35,6 +35,16 @@ a list containing:
 
 \item{return_data}{Logical. If \code{TRUE}, returns the computed density data instead
 of plotting. Defaults to \code{FALSE}.}
+
+\item{auto_layout}{Logical. If TRUE (default), automatically choose the number of columns
+based on the number of panels.}
+
+\item{panels_per_col}{Integer. Approximate number of panels per column before
+starting a new column (default = 5).}
+
+\item{max_cols}{Integer. Maximum number of columns to allow in the layout (default = 4).}
+
+\item{ncol_override}{Integer or NULL. If set, forces the number of columns in the layout.}
 }
 \value{
 If \code{return_data = FALSE} (default), a lattice plot object is returned

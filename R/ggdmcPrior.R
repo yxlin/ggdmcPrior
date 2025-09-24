@@ -160,7 +160,13 @@ generate_prior_data <- function(p_prior, npoint = 100L) {
 #' @param cex Numeric. Scaling factor for plot elements. Defaults to 5.
 #' @param return_data Logical. If \code{TRUE}, returns the computed density data instead
 #' of plotting. Defaults to \code{FALSE}.
-#'
+#' @param auto_layout Logical. If TRUE (default), automatically choose the number of columns
+#'   based on the number of panels.
+#' @param panels_per_col Integer. Approximate number of panels per column before
+#'   starting a new column (default = 5).
+#' @param max_cols Integer. Maximum number of columns to allow in the layout (default = 4).
+#' @param ncol_override Integer or NULL. If set, forces the number of columns in the layout.
+
 #' @return If \code{return_data = FALSE} (default), a lattice plot object is returned
 #' displaying the density curves for each prior. If \code{return_data = TRUE}, a data
 #' frame is returned with the following columns:
